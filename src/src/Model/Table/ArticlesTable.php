@@ -14,6 +14,7 @@ class ArticlesTable extends Table
     public function initialize(array $config): void
     {
         $this->addBehavior('Timestamp');
+        $this->belongsToMany('Tags');
     }
     //this funtion is called automaticall before every save and update operation
     public function beforeSave(EventInterface $event, $entity, $options)
