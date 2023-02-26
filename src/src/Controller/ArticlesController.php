@@ -51,8 +51,9 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles
             ->findBySlug($slug)
+            ->contain('Tags') // load associated Tags
             ->firstOrFail();
-
+        // this will be executed only when request put or patch request
         if ($this->request->is(['post', 'put'])) {
             $this->Articles->patchEntity($article, $this->request->getData());
             if ($this->Articles->save($article)) {
@@ -81,4 +82,21 @@ class ArticlesController extends AppController
         }
     }
 
+    //getting all tha articles with tags
+    // tags are passed from route as method parameter
+    //we are using variadic arguments here
+    public function tags(...$tags)
+    {
+        // Use the ArticlesTable to find tagged articles.
+        $articles = $this->Articles->find('tagged', [
+            'tags' => $tags
+        ])
+            ->all();
+
+        // Pass variables into the view template context.
+        $this->set([
+            'articles' => $articles,
+            'tags' => $tags
+        ]);
+    }
 }

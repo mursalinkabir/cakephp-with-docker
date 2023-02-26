@@ -70,6 +70,17 @@ return static function (RouteBuilder $routes) {
          * You can remove these routes once you've connected the
          * routes you want in your application.
          */
+
+        // Add this
+        // New route we're adding for our tagged action.
+        // The trailing `*` tells CakePHP that this action has
+        // passed parameters.
+        //scope is setting the intial /article part of the url
+        $builder->scope('/articles', function (RouteBuilder $builder) {
+            //setting the custom url /tagged with * to denote passed parameters
+            $builder->connect('/tagged/*', ['controller' => 'Articles', 'action' => 'tags']);
+        });
+
         $builder->fallbacks();
     });
 
