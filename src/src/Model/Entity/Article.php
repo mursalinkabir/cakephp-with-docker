@@ -3,14 +3,16 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Collection\Collection;
 
 class Article extends Entity
 {
+    //tag string is a computed value
     protected $_accessible = [
         '*' => true,
         'id' => false,
         'slug' => false,
-        'tag_string' => true,
+        'tag_string' => true
     ];
     protected function _getTagString()
     {

@@ -21,7 +21,10 @@ class ArticlesController extends AppController
     public function view($slug = null)
     {
         //finding by slug url and failing if not found
-        $article = $this->Articles->findBySlug($slug)->firstOrFail();
+        $article = $this->Articles
+            ->findBySlug($slug)
+            ->contain('Tags')
+            ->firstOrFail();
         $this->set(compact('article'));
     }
     public function add()
