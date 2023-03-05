@@ -43,4 +43,17 @@ class User extends Entity
     protected $_hidden = [
         'password',
     ];
+
+    /**
+     * hashing the password
+     * we are using convention based setter method to hash password when setting
+     * @param string $password
+     * @return string|null
+     */
+    protected function _setPassword(string $password) : ?string
+    {
+        if (strlen($password) > 0) {
+            return (new DefaultPasswordHasher())->hash($password);
+        }
+    }
 }
